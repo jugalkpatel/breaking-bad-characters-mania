@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { ThemeProvider } from "styled-components";
+
+import { AppTheme } from "./styles/theme";
+import FontStyles from "./styles/fontStyles";
+
+import { Home } from "./pages";
 
 function App() {
+  console.log({ AppTheme });
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello,world</h1>
-      </header>
-    </div>
+    <ThemeProvider theme={AppTheme}>
+      <FontStyles />
+      <Home />
+    </ThemeProvider>
   );
 }
 
