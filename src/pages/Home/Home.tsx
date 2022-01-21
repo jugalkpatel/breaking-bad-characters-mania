@@ -1,7 +1,12 @@
-import { CharacterCard } from "../../components";
+import { MaxWidthContainer } from "../../styles/common.styles";
+import { CharacterCard, Navbar } from "../../components";
 
 function Home() {
-  return <CharacterCard />;
+  return (
+    <MaxWidthContainer>
+      <Navbar />
+    </MaxWidthContainer>
+  );
 }
 
 export { Home };
