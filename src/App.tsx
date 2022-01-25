@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppTheme } from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
 
-import { Home } from "./pages";
+import { Home, Details } from "./pages";
 
 function App() {
   console.log({ AppTheme });
@@ -14,6 +14,7 @@ function App() {
         <GlobalStyles />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/character/:name" element={<Details />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
