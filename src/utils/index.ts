@@ -1,0 +1,1 @@
+export { isCharacterInFavorites } from "./isCharacterInFavorites";
