@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { borderRadius } from "../../styles/common.styles";
+
 const CardContainer = styled.div`
   color: ${({ theme }) => theme.primary};
   display: grid;
@@ -18,14 +19,6 @@ const ImgContainer = styled.article`
   grid-column: 1 / -1;
 `;
 
-const CharacterImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  border-radius: ${borderRadius};
-`;
-
 const TextContainer = styled.article`
   display: flex;
   flex-direction: column;
@@ -39,8 +32,6 @@ const NameText = styled.h3`
   margin-bottom: 0.3rem;
 `;
 
-const ActorText = styled.h1``;
-
 const FavButton = styled.button`
   position: absolute;
   top: 0.5rem;
@@ -49,14 +40,7 @@ const FavButton = styled.button`
   color: ${({ theme }) => theme.favicon};
   border-color: transparent;
   font-size: 2rem;
+  cursor: pointer;
 `;
 
-export {
-  CardContainer,
-  CharacterImg,
-  TextContainer,
-  NameText,
-  ActorText,
-  ImgContainer,
-  FavButton,
-};
+export { CardContainer, TextContainer, NameText, ImgContainer, FavButton };
