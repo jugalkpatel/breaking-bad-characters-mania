@@ -40,6 +40,7 @@ const HeightContainer = styled.section`
   justify-content: center;
   align-items: center;
   height: 70vh;
+  grid-column: 1 / -1;
 `;
 
 export {
