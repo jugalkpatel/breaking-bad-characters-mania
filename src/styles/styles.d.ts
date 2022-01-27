@@ -5,5 +5,7 @@ declare module "styled-components" {
     primary: string;
     secondary: string;
     favicon: string;
+    border: string;
+    black: string;
   }
 }
