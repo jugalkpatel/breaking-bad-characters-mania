@@ -2,22 +2,28 @@ import styled from "styled-components";
 import { AiFillHeart } from "react-icons/ai";
 
 const NavbarContainer = styled.nav`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 60px;
+  display: flex;
+  justify-content: space-between;
+  max-height: 80px;
   padding: 1rem;
 `;
 
+const LogoContainer = styled.article`
+  cursor: pointer;
+`;
+
 const LogoImg = styled.img`
-  width: 100%;
+  width: 100px;
   height: 100%;
 `;
 
-const IconContainer = styled.article`
+const IconContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  grid-column: 3;
+  cursor: pointer;
+  background-color: transparent;
+  border-color: transparent;
 `;
 
 const HeartIcon = styled(AiFillHeart)`
@@ -26,4 +32,4 @@ const HeartIcon = styled(AiFillHeart)`
   color: ${({ theme }) => theme.favicon};
 `;
 
-export { NavbarContainer, LogoImg, HeartIcon, IconContainer };
+export { NavbarContainer, LogoImg, HeartIcon, IconContainer, LogoContainer };
