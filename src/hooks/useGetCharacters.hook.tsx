@@ -1,35 +1,41 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer } from "react";
 
-export type Character = {
-  char_id: number;
-  name: string;
-  birthday: string;
-  occupation: string[];
-  img: string;
-  status: string;
-  nickname: string;
-  appearance: number[];
-  portrayed: string;
-  category: string;
-  better_call_saul_appearance: string[];
+import { AppState, Character, ACTIONTYPE } from "../common.types";
+import { isCharacterInFavorites } from "../utils";
+
+const initialState: AppState = {
+  characters: [],
+  favorites: [],
+  isLoading: false,
+  error: "",
 };
 
-export type CharacterState = {
-  isLoading: boolean;
-  characters: Character[] | [];
-  error: string;
-};
+function reducer(state: AppState, action: ACTIONTYPE) {
+  switch (action.type) {
+    case "SET_LOADING":
+      return { ...state, isLoading: state.isLoading ? false : true };
+    case "SET_ERROR":
+      return { ...state, error: action.payload };
+    case "SET_CHARACTERS":
+      return { ...state, characters: action.payload };
+    case "SET_FAVORITE":
+      return {
+        ...state,
+        favorites: isCharacterInFavorites(state.favorites, action.payload)
+          ? state.favorites.filter((charID) => charID !== action.payload)
+          : [...state.favorites, action.payload],
+      };
+    default:
+      throw new Error("action not available");
+  }
+}
 
 function useGetCharacters() {
-  const [characters, setCharacters] = useState<CharacterState>({
-    isLoading: false,
-    characters: [],
-    error: "",
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    setCharacters((prevState) => ({ ...prevState, isLoading: true }));
+    dispatch({ type: "SET_LOADING" });
 
     const fetchCharacters = async () => {
       try {
@@ -37,34 +43,29 @@ function useGetCharacters() {
           "https://breakingbadapi.com/api/characters/"
         );
 
-        setCharacters((prevState) => ({
-          ...prevState,
-          characters: data,
-          isLoading: false,
-        }));
+        dispatch({ type: "SET_CHARACTERS", payload: data });
       } catch (error) {
         if (axios.isAxiosError(error)) {
           const msg = error.message;
-          setCharacters((prevState) => ({
-            ...prevState,
-            error: msg,
-            isLoading: false,
-          }));
+          dispatch({ type: "SET_ERROR", payload: msg });
           return;
         }
 
-        setCharacters((prevState) => ({
-          ...prevState,
-          error: "error while fetching characters",
-          isLoading: false,
-        }));
+        dispatch({
+          type: "SET_ERROR",
+          payload: "error while fetching characters...",
+        });
+      } finally {
+        dispatch({ type: "SET_LOADING" });
       }
     };
 
     fetchCharacters();
   }, []);
 
-  return characters;
+  console.log({ state });
+
+  return { state, dispatch };
 }
 
 export { useGetCharacters };
